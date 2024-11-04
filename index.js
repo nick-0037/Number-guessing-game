@@ -6,6 +6,12 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
+const highScores = {
+  Easy: Infinity,
+  Medium: Infinity,
+  Hard: Infinity
+}
+
 function getRandomNumber() {
   return Math.floor(Math.random() * 100) + 1
 }
@@ -16,6 +22,25 @@ function getChances(level) {
     case '2': return 5
     case '3': return 3
     default: return 5
+  }
+}
+
+function getLevelName(level) {
+  switch(level) {
+    case '1': return 'Easy'
+    case '2': return 'Medium'
+    case '3': return 'Hard'
+    default: return 'Medium'
+  }
+}
+
+function updateHighScore(level, attempts) {
+  const levelName = getLevelName(level)
+  if(attempts < highScores[levelName]) {
+    highScores[levelName] = attempts
+    console.log(`New high score for ${levelName} level: ${attempts} attempts!`)
+  } else {
+    console.log(`Current high score for ${levelName} level: ${highScores[levelName]} attempts.`)
   }
 }
 
@@ -46,6 +71,7 @@ function startGame() {
             const timeTaken = (endTime - startTime) / 1000
 
             console.log(`\nCongratulations! You guessed the correct number in ${attempts} attempts.`)
+            updateHighScore(choice, attempts)
             console.log(`It took you ${timeTaken.toFixed(2)} seconds.`)
           } else {
             if(guess < randomNumber) {
