@@ -1,4 +1,5 @@
 const readline = require('readline')
+const { performance } = require('perf_hooks')
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -28,6 +29,7 @@ function startGame() {
     const randomNumber = getRandomNumber()
     let attempts = 0
     let guessedCorrectly = false
+    const startTime = performance.now()
 
     console.log(`Great! You have selected the ${choice === '1' ? 'Easy' : choice === 2 ? 'Medium' : 'Hard'} difficulty level`)
     console.log(`You have ${chances} chances to guess the correct number.\n`)
@@ -40,7 +42,11 @@ function startGame() {
 
           if(guess === randomNumber) {
             guessedCorrectly = true 
-            console.log(`Congratulations! You guessed the correct number in ${attempts} attempts.`)
+            const endTime = performance.now()
+            const timeTaken = (endTime - startTime) / 1000
+
+            console.log(`\nCongratulations! You guessed the correct number in ${attempts} attempts.`)
+            console.log(`It took you ${timeTaken.toFixed(2)} seconds.`)
           } else {
             if(guess < randomNumber) {
               console.log(`Incorrect! The number is greater than ${guess}.\n`)
