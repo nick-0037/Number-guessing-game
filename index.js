@@ -34,6 +34,19 @@ function getLevelName(level) {
   }
 }
 
+function giveHint(guess, randomNumber) {
+  const difference = Math.abs(randomNumber - guess)
+
+  if(difference >= 20) {
+    console.log("Hint: You are far from the correct number.")
+  } else if (difference >= 10) {
+    console.log("Hint: You are getting closer.")
+  } else {
+    console.log("Hint: You are very close!")
+  }
+  console.log(`Another hint: the number is ${randomNumber % 2 === 0 ? 'even' : 'odd'}.\n`)
+}
+
 function updateHighScore(level, attempts) {
   const levelName = getLevelName(level)
   if(attempts < highScores[levelName]) {
@@ -79,6 +92,11 @@ function startGame() {
             } else {
               console.log(`Incorrect! The number is less than ${guess}.\n`)
             }
+
+            if(attempts > Math.floor(chances / 2)) {
+              giveHint(guess, randomNumber)
+            }
+
             makeGuess()
           }
         })
