@@ -1,6 +1,7 @@
 # Number-guessing-game
 
 This is CLI-based game where the player has to guess a random number between 1 and 100. The game includes difficulty levels, hints, and a system to keep track of the high score.
+https://roadmap.sh/projects/number-guessing-game
 
 ## Description
 
